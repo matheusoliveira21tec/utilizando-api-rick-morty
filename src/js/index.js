@@ -1,16 +1,20 @@
-import '../css/styles.scss';
-import img from '../assets/Premier-League.jpg';
-const textComponent = () => {
-    const elH1 = document.createElement('h1');
-    elH1.innerHTML = 'Ola mundo!';
-    elH1.classList.add('title');
-    return elH1;
+import "core-js";
+import "regenerator-runtime/runtime";
+
+import Character from "./character";
+import { getCharacters } from "./character_service";
+
+async function loadCharacters() {
+    let characters = []
+    let charactersJSON = await getCharacters()
+    charactersJSON.forEach(character => {
+        const newCharacter = new Character(
+            character["id"], character["name"], character["status"],
+            character["species"], character["type"], character["gender"]
+        )
+        characters.push(newCharacter)
+    })
+    console.log(characters)
 }
 
-const igmComponent = () => {
-    const elImg = new Image(300,150);
-    elImg.src = img;
-    return elImg;
-}
-document.body.appendChild(textComponent());
-document.body.appendChild(igmComponent());
+loadCharacters()
