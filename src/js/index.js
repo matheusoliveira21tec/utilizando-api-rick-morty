@@ -14,7 +14,16 @@ async function loadCharacters() {
         )
         characters.push(newCharacter)
     })
-    console.log(characters)
+    renderCharacters(characters)
 }
 
+function renderCharacters(characters){
+    const ulElement = document.getElementById("list-characters")
+    characters.forEach(character =>{
+        const liElement = document.createElement("li")
+        const text = `${character.id} | ${character.name} | ${character.status} | ${character.species} | ${character.type} | ${character.gender}`
+        liElement.innerText = text
+        ulElement.appendChild(liElement)
+    })
+}
 loadCharacters()
